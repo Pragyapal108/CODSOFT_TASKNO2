@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizNest - Online Quiz Maker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo" onclick="showHome()">QuizNest</a>
+    <nav>
+        <button onclick="showHome()">Home</button>
+        <button onclick="showQuizList()">Explore Quizzes</button>
+        <span id="userLabel"></span>
+        <button id="authButton" onclick="openAuth()">Login / Register</button>
+        <button id="logoutButton" class="hidden" onclick="logout()">Logout</button>
+    </nav>
+</header>
+
+<main>
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page">
+        <div class="hero">
+            <h1>Make Learning More Exciting!</h1>
+            <p>Create quizzes, challenge yourself and test your knowledge.</p>
+            <button onclick="startCreate()">+ Create a Quiz</button>
+            <button class="secondary" onclick="showQuizList()">Take a Quiz</button>
+        </div>
+
+        <h2>What would you like to do?</h2>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Create a Quiz</h3>
+                <p>Add questions, four options and the correct answers.</p>
+                <button onclick="startCreate()">Create Now</button>
+            </div>
+
+            <div class="card">
+                <h3>Take a Quiz</h3>
+                <p>Choose a quiz and test your knowledge.</p>
+                <button onclick="showQuizList()">Explore Quizzes</button>
+            </div>
+
+            <div class="card">
+                <h3>View Results</h3>
+                <p>Check your score and review correct answers.</p>
+                <button onclick="showQuizList()">Start Learning</button>
+            </div>
+        </div>
+
+        <p class="stats">
+            Available quizzes: <strong id="quizCount">0</strong>
+        </p>
+    </section>
+
+    <!-- LOGIN AND REGISTRATION -->
+    <section id="authPage" class="page hidden">
+        <div class="form-card">
+            <button class="back" onclick="showHome()">← Home</button>
+            <h2 id="authTitle">Welcome Back</h2>
+
+            <div class="tabs">
+                <button onclick="setAuthMode('login')">Login</button>
+                <button onclick="setAuthMode('register')">Register</button>
+            </div>
+
+            <form id="authForm">
+                <label id="nameLabel" class="hidden">Full Name</label>
+                <input id="authName" class="hidden"
+                       type="text" placeholder="Enter your name">
+
+                <label>Email Address</label>
+                <input id="authEmail" type="email"
+                       placeholder="Enter your email" required>
+
+                <label>Password</label>
+                <input id="authPassword" type="password"
+                       placeholder="Minimum 6 characters"
+                       minlength="6" required>
+
+                <p id="authMessage" class="message"></p>
+                <button type="submit" id="authSubmit">Login</button>
+            </form>
+
+            <small>Demo authentication uses this browser's storage.</small>
+        </div>
+    </section>
+
+    <!-- CREATE QUIZ -->
+    <section id="createPage" class="page hidden">
+        <button class="back" onclick="showHome()">← Home</button>
+        <h1>Create Your Quiz</h1>
+
+        <form id="createForm" class="form-card">
+            <label>Quiz Title</label>
+            <input id="quizTitle" type="text"
+                   placeholder="Example: Python Basics" required>
+
+            <label>Description</label>
+            <textarea id="quizDescription"
+                      placeholder="Describe your quiz"></textarea>
+
+            <h2>Questions</h2>
+            <div id="questionBuilder"></div>
+
+            <button type="button" class="secondary"
+                    onclick="addQuestion()">+ Add Question</button>
+
+            <p id="createMessage" class="message"></p>
+
+            <button type="submit">Save Quiz</button>
+        </form>
+    </section>
+
+    <!-- QUIZ LIST -->
+    <section id="listPage" class="page hidden">
+        <button class="back" onclick="showHome()">← Home</button>
+        <h1>Available Quizzes</h1>
+
+        <input id="quizSearch" type="search"
+               placeholder="Search quizzes...">
+
+        <div id="quizList" class="cards"></div>
+
+        <div id="emptyQuizzes" class="hidden">
+            <h3>No quizzes found</h3>
+            <p>Create a new quiz or try another search.</p>
+            <button onclick="startCreate()">Create Quiz</button>
+        </div>
+    </section>
+
+    <!-- TAKE QUIZ -->
+    <section id="takePage" class="page hidden">
+        <button class="back" onclick="showQuizList()">← All Quizzes</button>
+        <div class="form-card">
+            <h1 id="takingTitle"></h1>
+            <p id="takingDescription"></p>
+
+            <p id="questionProgress"></p>
+            <div class="progress-track">
+                <div id="progressBar"></div>
+            </div>
+
+            <h2 id="takingQuestion"></h2>
+            <div id="answerOptions"></div>
+
+            <p id="answerMessage" class="message"></p>
+
+            <button id="nextQuestionButton"
+                    onclick="nextQuestion()" disabled>
+                Next Question
+            </button>
+        </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="resultPage" class="page hidden">
+        <div class="form-card">
+            <h1 id="resultHeading">Quiz Completed!</h1>
+            <p id="resultSubtitle"></p>
+
+            <h2>Your Score: <span id="scoreValue"></span></h2>
+            <h3 id="scorePercent"></h3>
+            <p id="resultFeedback"></p>
+
+            <button onclick="retryQuiz()">Try Again</button>
+            <button class="secondary" onclick="showQuizList()">More Quizzes</button>
+
+            <h2>Answer Review</h2>
+            <div id="answerReview"></div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>QuizNest | Built with HTML, CSS and JavaScript</p>
+    <p>CODSOFT Web Development Internship - Level 2 Task 2</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
